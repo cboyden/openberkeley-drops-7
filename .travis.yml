@@ -10,11 +10,14 @@ env:
     - PSOURCE='dev'
 
     # The authentication details for a Pantheon account with access to the site
-    - secure: "aFHFuNedOqpT5uKtsMsALj4eNm8FkPruzEmgiKEMAeVzx/52LxqBFAQ4zWx+X8j4ormhZBV/HyBqoLa7u7KFBmAiVo2Sq7KrDnwqRdEbfl/51zO2BTkUAbGkFkG52iYK4CM6x8KfG39JVKVjaLrrFe6xeifbhnkcvpqOV/LZzKg="
-    - secure: "VFTOWaep7xho34hTxMRzB4tLyWGYWe3lMdnsnp014WLomsae20eWR3bHLuK+G3rEdGCNSr+6msuYJxvi0nhsTf+Mvn+XNBIAl6JjCXOPw5+rVMSXHFzVvL3vkd6yLRiQyrVV9UyvTnaiAXS8mS9galG33wnL4GskHjsWm5kBuaU="
+#    - secure: "aFHFuNedOqpT5uKtsMsALj4eNm8FkPruzEmgiKEMAeVzx/52LxqBFAQ4zWx+X8j4ormhZBV/HyBqoLa7u7KFBmAiVo2Sq7KrDnwqRdEbfl/51zO2BTkUAbGkFkG52iYK4CM6x8KfG39JVKVjaLrrFe6xeifbhnkcvpqOV/LZzKg="
+ #   - secure: "VFTOWaep7xho34hTxMRzB4tLyWGYWe3lMdnsnp014WLomsae20eWR3bHLuK+G3rEdGCNSr+6msuYJxvi0nhsTf+Mvn+XNBIAl6JjCXOPw5+rVMSXHFzVvL3vkd6yLRiQyrVV9UyvTnaiAXS8mS9galG33wnL4GskHjsWm5kBuaU="
+
+    - PEMAIL='ist-drupal@lists.berkeley.edu'
+    - PPASS='test'
 
     # The host against which the build will be run
-    - PHOST="https://$TRAVIS_BRANCH-$PNAME.gotpantheon.com"
+    - PHOST="https://$TRAVIS_BRANCH-$PNAME.pantheon.berkeley.edu"
 
 install:
   # Ensure the build doesn't get hung up on adding unknown hosts.
