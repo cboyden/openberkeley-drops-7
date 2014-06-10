@@ -14,7 +14,7 @@ env:
     - secure: "VFTOWaep7xho34hTxMRzB4tLyWGYWe3lMdnsnp014WLomsae20eWR3bHLuK+G3rEdGCNSr+6msuYJxvi0nhsTf+Mvn+XNBIAl6JjCXOPw5+rVMSXHFzVvL3vkd6yLRiQyrVV9UyvTnaiAXS8mS9galG33wnL4GskHjsWm5kBuaU="
 
     # The host against which the build will be run
-    - PHOST="https://$TRAVIS_BRANCH-$PNAME.gotpantheon.com"
+    - PHOST="https://$TRAVIS_BRANCH-$PNAME.pantheon.berkeley.edu"
 
 install:
   # Ensure the build doesn't get hung up on adding unknown hosts.
