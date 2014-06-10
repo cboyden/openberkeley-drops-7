@@ -1,0 +1,67 @@
+language: php
+php: 5.3
+env:
+  global: 
+    - PNAME='openberkeley-drops'
+    - PSITE='openberkeley-drops'
+    - PUUID='7a2c33ae-1103-558e-bb6b-b9a40a7e3786'
+    - PSOURCE='dev'
+
+    # The authentication details for a Pantheon account with access to the site
+    - secure: "aFHFuNedOqpT5uKtsMsALj4eNm8FkPruzEmgiKEMAeVzx/52LxqBFAQ4zWx+X8j4ormhZBV/HyBqoLa7u7KFBmAiVo2Sq7KrDnwqRdEbfl/51zO2BTkUAbGkFkG52iYK4CM6x8KfG39JVKVjaLrrFe6xeifbhnkcvpqOV/LZzKg="
+    - secure: "VFTOWaep7xho34hTxMRzB4tLyWGYWe3lMdnsnp014WLomsae20eWR3bHLuK+G3rEdGCNSr+6msuYJxvi0nhsTf+Mvn+XNBIAl6JjCXOPw5+rVMSXHFzVvL3vkd6yLRiQyrVV9UyvTnaiAXS8mS9galG33wnL4GskHjsWm5kBuaU="
+
+    # The host against which the build will be run
+    - PHOST="https://$TRAVIS_BRANCH-$PNAME.gotpantheon.com"
+
+install:
+  # Ensure the build doesn't get hung up on adding unknown hosts.
+  - echo "StrictHostKeyChecking no" > ~/.ssh/config
+
+  # Install drush.
+  - composer global require drush/drush:6.2.0
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+  # Install terminus.
+  - git clone https://github.com/pantheon-systems/terminus.git $HOME/.drush/terminus
+  - cd $HOME/.drush/terminus
+  - composer update --no-dev
+  - drush cc drush
+
+before_script:
+# Authenticate with Pantheon via Terminus.
+- drush pauth $PEMAIL --password=$PPASS
+
+# Add Pantheon as a remote to our repo and force push to it.
+- cd $TRAVIS_BUILD_DIR
+- git checkout -b $PSITE
+- git remote add pantheon ssh://codeserver.dev.$PUUID@codeserver.dev.$PUUID.drush.in:2222/~/repository.git
+- git push --force pantheon $PSITE
+
+# Create a new Pantheon environment using the above branch.
+- drush psite-ecreate $PUUID $PSITE --source=$PSOURCE || true
+
+# Update our drush aliases file.
+- drush paliases
+- drush cc drush
+
+# We cannot be in a Drupal directory to run aliased drush commands.
+- cd $HOME
+
+# When new modules are added to the codebase, updb can sometimes fail (thus
+# causing a failed build) because the system table and modules are out of
+# sync. We get around this by clearing all caches before attempting anything.
+# The "|| true" works around issues where Views and Block conflict during
+# cache clears / block rehashes.
+- drush @pantheon.$PNAME.$PSITE cc all --strict=0 || true
+
+# Run all available updates as if deploying. For now, append the
+# --strict=0 option for Drush 6.x compatibility on Pantheon.
+- drush @pantheon.$PNAME.$PSITE updb -y --strict=0
+
+ after_script:
+# Destroy the Pantheon environment
+- drush psite-edelete $PUUID $PSITE -y
+
+# Delete the git branch we created.
+- cd $TRAVIS_BUILD_DIR; git push pantheon :$PSITE
