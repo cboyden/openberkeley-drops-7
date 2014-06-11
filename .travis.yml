@@ -1,74 +1,137 @@
 language: php
-php: 5.3
 
+#
+# Important to note, this is the version of PHP used to run this build, not the
+# one used to run your Drupal installation. Ensure compatibility with the Drush
+# and Terminus versions you're using for this build.
+#
+php:
+  - 5.3
+
+#
+# Travis/Pantheon integration requires an RSA key that at least has read access
+# to your GitHub repo and write access to Pantheon's git repo. Create a user on
+# both systems with the most restricted access, given the aforementioned
+# constraints. Then, for the given user, generate and load a public key to both
+# GitHub/Pantheon. Follow instructions from Travis-CI on using this new key.
+#
+# Keep the Pantheon account e-mail address and password handy, you'll need it
+# below in env.global.
+#
+# http://docs.travis-ci.com/user/travis-pro/
+# https://help.github.com/articles/generating-ssh-keys
+#
 source_key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBdWxQL0cwejVZb2FBOGdpWVZucTByVlg4TWpwWW9zbXBlN04zOE1YWHE3UzFjNDVqCkE1VnVIUFV2LzFkVXl6K2xZUmpWd3hVYlJEMEhmcVBEM1AwMWc3dEJOR3N4M1FLUUxBbEk1anBNV3QzVHI5cEMKVlcwZ1JocjhRQTdtVExEM0NkOUQya1YwWS9Qa2xMNjJXeWE4bTdlL280Tjl6R0ROOUdFOFhmTnNsU3FXbzNzSgp5bDZwdU12emJCWHhxOFd1Tm5CRTNQZ0Q2dWRNblN4cGphc0xNOW5BR3JlZlJHaEF1YjJYWE9lUmlYL21VRWhZClVMUGFud3dVVnhUMmpjOTA1Tno2UHBXaEVrQVcyaCtVSEIwdURCQkt2Y0Z1cTFmRHQzb3VKSGNsRmU5R20weXYKRmtRbkNBOUpsdnpILzFwWUN5VzNUSElMdlBOYUNoTlpwYVBFeVFJREFRQUJBb0lCQUh6QlVNV092RXRqazJKNgpyc1Q0VTVEYlNZaTMyRERtcFR2VjVqQ254c2VJcnhVMytNT2xnWnlSN2hrZzkvMCtHQlR5OCsweWJKYzc1WkM5ClJaN3BTck53NVMrYnRqOHNRQ3U3Njd0NnZUVDU0WXFVc0dWU001Rzg3N2hVUVk2SHptQWx4T0NZTUYzY0p1Z1EKNlRnT3I2bnpWYlM5amJVUis5UHNadWJnM1lyaFcwR01uVHA0blBzM3RzbmhUWXRaeDE3eUdtc3k4TGNUQVcxMgptNjRYUEwxSVY5YU1vdVhiNzlpcmY4ZFJYcTVCVjZJckJMbW84R3Y1aFRLUE1DcGNsSmhKNFNENWpoTFBvREFZCmk1anBUTGczSDNIL2prV3VXWVdZeDNPYjZraGYzN28rSEZuRGhmai9DWStnS3hLS0JIbEpVUDBVVGorbUxoek4KcHowUHFBRUNnWUVBOEN0UVF2cy9xY0t2MTBSZU5MTFJMTkxLYyttWSt3RWVGWDJiRDVyQ2tFN0o0MWVwVXl4bQpRRkNlVFFmR1EvMi9HYmplSWtWOVphQzIvYjRVNHQ2OGZzTldPWTJOYnU3Nkh5WmExWTYxVSt3Y1hJNFNOU0RLCnJFY29EUnFVR09FQTFUVVhYbU5tSzZiUmIyaU1SVW04cXBYZ0NwMisrZWM1d1dKVVI5TnBpcUVDZ1lFQXhwd24KRE1iZlkxb2FJMVZjOW9vY2ZQTjhDVUQwN01IL3hkaUlHbjVCZytCUmdFTlZSeTIzcWxHNE8velJqUVhsUTA1egpMY0ZqMjRFODg1MndUQm9wQ3pMWjBta1grZzd2K3BqNVhxR2lFUml5TjVpUVgxeTgrNEZqdmUxQndreDlFd085CnkyYnVhWXcrb1h0WW1UQ2Rsd2t3NUZOZ2NJTEMvWmRMcThkYjhTa0NnWUVBMExvRUJrS1BvTDBYejNHV29od3EKbU5jVnBrbUZiOWdYeWp1Z2tKNUNxK0lkcVp4ZEIzRVY2SjFvQnJCVUNuRTBMV215Zkh5Q0w5bk9UNVpzVm9PWAp0RitWeDIwVFZ5OFFhQlFRYTN1Y2NiUkpMZE0zVmI4TEJWRE9LUjFKU3BuNS9GSW8zaHByQ0ZMeHYrNVB3a1FFCldRanFicStMODJxV2tsQWZ5VkNlY0NFQ2dZQWwrbTR0TDBwQVFWYUdNeWlYckVsT1MzRUlnL2RSM3JiK0tpMjgKZ3pBYis2VWFGY1lVMmxVb3FIL0dXTTNwWFpzOWg1N1d2UWhQVFNOT29uUzMyTGpJZjJ6UG8zRUdUQnp2bXBqMAowNHVlSVU3UytzV0F0c2NjZ04yRnoveW5IdUU3NVpkQmNlbGRIWWhNY0wyOGJXTjFJampMTUhaY2pXU2tBVzVpCjVyaGFJUUtCZ1FEakNDcWIxUXptRGMraSttamhEdWlDei83VTZGbUhIckIrcHlGMFVJYzUyS3htNU9ZbWI3Q0UKNndxT2FOUTcvV2ZlbFBJMnkxc3JVdTB1MzhzbFN6Y1R0KzNLWEEzdUdKWi9KWWJIMzhIZEY5V0xOR3JhMk5SZwozcXEzTjhMeUVBWjdndndxYXc0SFI1MGZLMVFnT2h4QXZ1OFRoODk3MWw4WXJwcTNITS9HQ1E9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+
 env:
-  global: 
-    - PNAME='openberkeley-drops'
-    - PSITE='openberkeley-drops'
+  global:
+    # Your Pantheon site's UUID (e.g. from your dashboard URL)
     - PUUID='7a2c33ae-1103-558e-bb6b-b9a40a7e3786'
+
+    # Your Pantheon site's name.
+    - PNAME='openberkeley-drops'
+
+    # The Pantheon environment name from which Multidev DB/files will be pulled.
+    # Probably one of: dev, test, live.
     - PSOURCE='dev'
 
-    # The authentication details for a Pantheon account with access to the site
-#    - secure: "aFHFuNedOqpT5uKtsMsALj4eNm8FkPruzEmgiKEMAeVzx/52LxqBFAQ4zWx+X8j4ormhZBV/HyBqoLa7u7KFBmAiVo2Sq7KrDnwqRdEbfl/51zO2BTkUAbGkFkG52iYK4CM6x8KfG39JVKVjaLrrFe6xeifbhnkcvpqOV/LZzKg="
- #   - secure: "VFTOWaep7xho34hTxMRzB4tLyWGYWe3lMdnsnp014WLomsae20eWR3bHLuK+G3rEdGCNSr+6msuYJxvi0nhsTf+Mvn+XNBIAl6JjCXOPw5+rVMSXHFzVvL3vkd6yLRiQyrVV9UyvTnaiAXS8mS9galG33wnL4GskHjsWm5kBuaU="
+    #
+    # PEMAIL environment variable: represents the Pantheon account e-mail with
+    # access to this site. Used to authenticate to Pantheon via Terminus. You
+    # must cd to your project root and run:
+    #
+    # travis encrypt PEMAIL='test@example.com' --add env.global
+    #
+    # Which will eventually look something like the key below.
+    # See: http://docs.travis-ci.com/user/build-configuration/#Secure-environment-variables
+    #
+    - secure: "XaQTrXjuPNlWN3/531Wgz8Fz+Z1thNiFw6kfAfWG/dRIqwRNOV4h4E2WsHno/z7TUGie2iv6JTk0QPGmo5Ba/NPPrtleYHYdF1tHkR86e+KjW9UwFvDu7h0Wiln5Qt5hBHg1jMAAsJMlL54Bjq6fmbrCcrDDnSiiUmwQMz3Rqrs="
 
-    - PEMAIL='ist-drupal@lists.berkeley.edu'
-    - PPASS='test'
+    #
+    # PPASS environment variable: represents the Pantheon account password for
+    # the above encrypted e-mail address. Run:
+    #
+    # travis encrypt PPASS='my_account_password' --add env.global
+    #
+    - secure: "M38w9zti9vxItnSv/a7hq34JjDWtwDi2zmEE4hIdX+3j5wX0J4/zbyvLoJo/YZ2XVH3WpdoM5m2xZFACT+vPZ/nYci3IwxF7Tc6zGBMIfTU3s8Zb98gx1adFrNBGToXVwIivanokvLHzVOa4+XxnWJG9WnA9z3VNrpF8UgnrJxQ="
 
-    # The host against which the build will be run
-    - PHOST="https://$TRAVIS_BRANCH-$PNAME.pantheon.berkeley.edu"
+    # Generate a random branch / multidev name, prefixed with "ci" followed
+    # by the Travis build number. Note, due to Pantheon multidev environment
+    # name limits, builds will start failing at #100000.
+    - PSITE=$(cat /dev/urandom | tr -cd 'a-z0-9' | head -c 4)
+    - PSITE="ci$TRAVIS_BUILD_NUMBER-$PSITE"
+
+    # You can use $PHOST as a reference to the resulting multidev hostname.
+    - PHOST="http://$PSITE-$PNAME.pantheon.berkeley.edu"
 
 install:
-  # Ensure the build doesn't get hung up on adding unknown hosts.
+  # Dynamic hosts through Pantheon mean constantly checking interactively
+  # that we mean to connect to an unknown host. We ignore those here.
   - echo "StrictHostKeyChecking no" > ~/.ssh/config
 
-  # Install drush.
+  # Install Drush.
   - composer global require drush/drush:6.2.0
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
-  # Install terminus.
+  # Install Terminus.
   - git clone https://github.com/pantheon-systems/terminus.git $HOME/.drush/terminus
   - cd $HOME/.drush/terminus
   - composer update --no-dev
   - drush cc drush
 
+  # Install additional test dependencies here (like Casper, Behat, etc).
+
 before_script:
-# Authenticate with Pantheon via Terminus.
-- drush pauth $PEMAIL --password=$PPASS
+  # Authenticate with Pantheon via Terminus.
+  - drush pauth $PEMAIL --password=$PPASS
 
-# Add Pantheon as a remote to our repo and force push to it.
-- cd $TRAVIS_BUILD_DIR
-- git checkout -b $PSITE
-- git remote add pantheon ssh://codeserver.dev.$PUUID@codeserver.dev.$PUUID.drush.in:2222/~/repository.git
-- git push --force pantheon $PSITE
+  # Add Pantheon as a remote to our repo and force push to it.
+  - cd $TRAVIS_BUILD_DIR
+  - git checkout -b $PSITE
+  - git remote add pantheon ssh://codeserver.dev.$PUUID@codeserver.dev.$PUUID.drush.in:2222/~/repository.git
+  - git push --force pantheon $PSITE
 
-# Create a new Pantheon environment using the above branch.
-- drush psite-ecreate $PUUID $PSITE --source=$PSOURCE || true
+  # Create a new Pantheon environment using the above branch.
+  - drush psite-ecreate $PUUID $PSITE --source=$PSOURCE || true
 
-# Update our drush aliases file.
-- drush paliases
-- drush cc drush
+  # Update our drush aliases file.
+  - drush paliases
+  - drush cc drush
 
-# We cannot be in a Drupal directory to run aliased drush commands.
-- cd $HOME
+  # We cannot be in a Drupal directory to run aliased drush commands.
+  - cd $HOME
 
-# When new modules are added to the codebase, updb can sometimes fail (thus
-# causing a failed build) because the system table and modules are out of
-# sync. We get around this by clearing all caches before attempting anything.
-# The "|| true" works around issues where Views and Block conflict during
-# cache clears / block rehashes.
-- drush @pantheon.$PNAME.$PSITE cc all --strict=0 || true
+  # When new modules are added to the codebase, updb can sometimes fail (thus
+  # causing a failed build) because the system table and modules are out of
+  # sync. We get around this by clearing all caches before attempting anything.
+  # The "|| true" works around issues where Views and Block conflict during
+  # cache clears / block rehashes.
+  - drush @pantheon.$PNAME.$PSITE cc all --strict=0 || true
 
-# Run all available updates as if deploying. For now, append the
-# --strict=0 option for Drush 6.x compatibility on Pantheon.
-- drush @pantheon.$PNAME.$PSITE updb -y --strict=0
+  # Run all available updates as if deploying. For now, append the
+  # --strict=0 option for Drush 6.x compatibility on Pantheon.
+  - drush @pantheon.$PNAME.$PSITE updb -y --strict=0
+
+  # Enable additional test dependencies here, like SimpleTest.
+  - drush @pantheon.$PNAME.$PSITE en simpletest -y --strict=0
+
+  # If you're using SimpleTest, you'll want to disable verbose logging. This
+  # ensures no false build failures from file write errors.
+  - drush @pantheon.$PNAME.$PSITE vset -y simpletest_verbose 0 --strict=0
 
 script:
+  #
+  # This is where you run your tests, be they SimpleTest, Casper, Behat,
+  # or otherwise. Here's a SimpleTest example. I've found that drush
+  # likes to exit with odd codes if you run multiple classes at once.
+  # You may have to run one class at a time.
+  #
+  - drush @pantheon.$PNAME.$PSITE test-run MyTestClass --strict=0
+  - drush @pantheon.$PNAME.$PSITE test-run MyTestClass2 --strict=0
 
 after_script:
-# Destroy the Pantheon environment
-- drush psite-edelete $PUUID $PSITE -y
+  # Destroy the Pantheon environment
+  - drush psite-edelete $PUUID $PSITE -y
 
-# Delete the git branch we created.
-- cd $TRAVIS_BUILD_DIR; git push pantheon :$PSITE
+  # Delete the git branch we created.
+  - cd $TRAVIS_BUILD_DIR; git push pantheon :$PSITE
