@@ -65,6 +65,11 @@ env:
     - PHOST="http://$PSITE-$PNAME.pantheon.berkeley.edu"
 
 install:
+  # debug
+  - echo "PSITE=$PSITE"
+  - echo "PNAME=$PNAME"
+  - echo "PHOST=$PHOST"
+
   # Dynamic hosts through Pantheon mean constantly checking interactively
   # that we mean to connect to an unknown host. We ignore those here.
   - echo "StrictHostKeyChecking no" > ~/.ssh/config
@@ -83,17 +88,22 @@ install:
 
 before_script:
   # Authenticate with Pantheon via Terminus.
+  - echo "drush pauth $PEMAIL --password=$PPASS"
   - drush pauth $PEMAIL --password=$PPASS
 
 
 
   # Add Pantheon as a remote to our repo and force push to it.
   - cd $TRAVIS_BUILD_DIR
+  - echo "git checkout -b $PSITE"
   - git checkout -b $PSITE
+  - echo "git remote add pantheon ssh://codeserver.dev.$PUUID@codeserver.dev.$PUUID.drush.in:2222/~/repository.git"
   - git remote add pantheon ssh://codeserver.dev.$PUUID@codeserver.dev.$PUUID.drush.in:2222/~/repository.git
+  - echo "git push --force pantheon $PSITE"
   - git push --force pantheon $PSITE
 
   # Create a new Pantheon environment using the above branch.
+  - echo "drush psite-ecreate $PUUID $PSITE --source=$PSOURCE || true"
   - drush psite-ecreate $PUUID $PSITE --source=$PSOURCE || true
 
   # Update our drush aliases file.
@@ -108,18 +118,21 @@ before_script:
   # sync. We get around this by clearing all caches before attempting anything.
   # The "|| true" works around issues where Views and Block conflict during
   # cache clears / block rehashes.
+  - echo "- drush @pantheon.$PNAME.$PSITE cc all --strict=0 || true"
   - drush @pantheon.$PNAME.$PSITE cc all --strict=0 || true
 
   # Run all available updates as if deploying. For now, append the
   # --strict=0 option for Drush 6.x compatibility on Pantheon.
+  - echo "drush @pantheon.$PNAME.$PSITE updb -y --strict=0"
   - drush @pantheon.$PNAME.$PSITE updb -y --strict=0
 
   # Enable additional test dependencies here, like SimpleTest.
-  - drush @pantheon.$PNAME.$PSITE en simpletest -y --strict=0
+  # - echo "drush @pantheon.$PNAME.$PSITE en simpletest -y --strict=0"
+  # - drush @pantheon.$PNAME.$PSITE en simpletest -y --strict=0
 
   # If you're using SimpleTest, you'll want to disable verbose logging. This
   # ensures no false build failures from file write errors.
-  - drush @pantheon.$PNAME.$PSITE vset -y simpletest_verbose 0 --strict=0
+  # - drush @pantheon.$PNAME.$PSITE vset -y simpletest_verbose 0 --strict=0
 
 script:
   #
@@ -128,12 +141,13 @@ script:
   # likes to exit with odd codes if you run multiple classes at once.
   # You may have to run one class at a time.
   #
-  - drush @pantheon.$PNAME.$PSITE
-  - drush @pantheon.$PNAME.$PSITE test-run MyTestClass2 --strict=0
+  - echo "drush @pantheon.$PNAME.$PSITE sql-connect"
+  - drush @pantheon.$PNAME.$PSITE sql-connect
+  # - drush @pantheon.$PNAME.$PSITE test-run MyTestClass2 --strict=0
 
 after_script:
   # Destroy the Pantheon environment
-  - drush psite-edelete $PUUID $PSITE -y
+  # - drush psite-edelete $PUUID $PSITE -y
 
   # Delete the git branch we created.
-  - cd $TRAVIS_BUILD_DIR; git push pantheon :$PSITE
+  # - cd $TRAVIS_BUILD_DIR; git push pantheon :$PSITE
