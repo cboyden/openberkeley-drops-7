@@ -80,8 +80,8 @@ install:
   - drush cc drush
 
   # Git config
-  git config --global user.email "ist-drupal@lists.berkeley.edu"
-  git config --global user.name "IST Drupal Travis CI User"
+  - git config --global user.email "ist-drupal@lists.berkeley.edu"
+  - git config --global user.name "IST Drupal Travis CI User"
 
   # Install additional test dependencies here (like Casper, Behat, etc).
 
