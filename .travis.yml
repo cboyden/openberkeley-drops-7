@@ -83,7 +83,8 @@ install:
 
 before_script:
   # Authenticate with Pantheon via Terminus.
-  - drush pauth $PEMAIL --password=$PPASS
+  #- drush pauth $PEMAIL --password=$PPASS
+  - drush pauth ist-drupal@lists.berkeley.edu --password=$PPASS
 
   # Add Pantheon as a remote to our repo and force push to it.
   - cd $TRAVIS_BUILD_DIR
