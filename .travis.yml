@@ -65,11 +65,6 @@ env:
     - PHOST="http://$PSITE-$PNAME.pantheon.berkeley.edu"
 
 install:
-  # debug
-  - echo "PSITE=$PSITE"
-  - echo "PNAME=$PNAME"
-  - echo "PHOST=$PHOST"
-
   # Dynamic hosts through Pantheon mean constantly checking interactively
   # that we mean to connect to an unknown host. We ignore those here.
   - echo "StrictHostKeyChecking no" > ~/.ssh/config
@@ -88,22 +83,19 @@ install:
 
 before_script:
   # Authenticate with Pantheon via Terminus.
-  - echo "drush pauth $PEMAIL --password=$PPASS"
   - drush pauth $PEMAIL --password=$PPASS
-
-
 
   # Add Pantheon as a remote to our repo and force push to it.
   - cd $TRAVIS_BUILD_DIR
-  - echo "git checkout -b $PSITE"
   - git checkout -b $PSITE
-  - echo "git remote add pantheon ssh://codeserver.dev.$PUUID@codeserver.dev.$PUUID.drush.in:2222/~/repository.git"
   - git remote add pantheon ssh://codeserver.dev.$PUUID@codeserver.dev.$PUUID.drush.in:2222/~/repository.git
-  - echo "git push --force pantheon $PSITE"
+  # Need to add a settings.php so that drush commands will work on Pantheon
+  - touch sites/default/settings.php
+  - git add --all
+  - git commit -am "Adding a settings.php"
   - git push --force pantheon $PSITE
 
   # Create a new Pantheon environment using the above branch.
-  - echo "drush psite-ecreate $PUUID $PSITE --source=$PSOURCE || true"
   - drush psite-ecreate $PUUID $PSITE --source=$PSOURCE || true
 
   # Update our drush aliases file.
@@ -118,12 +110,10 @@ before_script:
   # sync. We get around this by clearing all caches before attempting anything.
   # The "|| true" works around issues where Views and Block conflict during
   # cache clears / block rehashes.
-  - echo "- drush @pantheon.$PNAME.$PSITE cc all --strict=0 || true"
   - drush @pantheon.$PNAME.$PSITE cc all --strict=0 || true
 
   # Run all available updates as if deploying. For now, append the
   # --strict=0 option for Drush 6.x compatibility on Pantheon.
-  - echo "drush @pantheon.$PNAME.$PSITE updb -y --strict=0"
   - drush @pantheon.$PNAME.$PSITE updb -y --strict=0
 
   # Enable additional test dependencies here, like SimpleTest.
