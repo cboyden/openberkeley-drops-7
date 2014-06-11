@@ -40,20 +40,20 @@ env:
     # access to this site. Used to authenticate to Pantheon via Terminus. You
     # must cd to your project root and run:
     #
-    # travis encrypt PEMAIL='test@example.com' --add env.global
+    # travis encrypt -r ucb-ist-drupal/openberkeley-drops-7 PEMAIL='test@example.com'
     #
     # Which will eventually look something like the key below.
     # See: http://docs.travis-ci.com/user/build-configuration/#Secure-environment-variables
     #
-    - secure: "gvNQpP7gciAEFn8evNRzDgqu84yynSWKzJcpkZYqDTAXBnMAN4Dtzu+27C9CWfM3rGMT7i4g36VY419UwXYsXDhtiNLxG/PUZYZy4o5l9NQU4o0Xacn7Q2HIbDQIWC0HLpAd0K5s9OAnqwc0lV82JbppBaN/J6Bki49zMu0+cw8="
+    - secure: "KCq6gokwnfEeA513KDX55r/XCYr8QW/k+tkk6A9jhVfWesed4uZfvJdZg3jOxNTpLomr2VlAnWcM2gslOvrD7eea0iQXumcce6QmxnJDwXNNhdGU8HfWcaN0aHu9zwnq/hYft3MRnjD48EXjzs3yIKkhnNwOoNguPj53FWx8iLU="
     
     #
     # PPASS environment variable: represents the Pantheon account password for
     # the above encrypted e-mail address. Run:
     #
-    # travis encrypt PPASS='my_account_password' --add env.global
+    # travis encrypt -r ucb-ist-drupal/openberkeley-drops-7 "PPASS='foo'"
     #
-    - secure: "Z7GZY5v3ynGzCitP92O2YDMa6arJ7ML0T/iMs3+ApFx7Qhqt1nSBECAj9Qf5MK0mEKMfSeC1r4lHugaSdxlfh18CgOPUJ9hBNyY2dTT/U7hEl+A87s1LHrfxyw2Xa9Ud118CAGWnARZNsoCIrtUiHUbH/DUd0tEa5Ug+xjvwlZA="
+    - secure: "fA3xM0KwXcA2+UsbJNpqSyqnf2Hei0Q8uXl9tzyhNtgEsw01jaoS4n8xYErRSEpnvaARV30oxcJzfcHVGY1tmkPAqfUHlZWKOM50cm1M5INz0qoYFBUb6yFX+HG262mEhl03WKtUp0HPUm9FErnuYm/TIiO5B573ORSROIZKLsI="
 
     # Generate a random branch / multidev name, prefixed with "ci" followed
     # by the Travis build number. Note, due to Pantheon multidev environment
@@ -83,8 +83,9 @@ install:
 
 before_script:
   # Authenticate with Pantheon via Terminus.
-  #- drush pauth $PEMAIL --password=$PPASS
-  - drush pauth ist-drupal@lists.berkeley.edu --password=$PPASS
+  - drush pauth $PEMAIL --password=$PPASS
+
+
 
   # Add Pantheon as a remote to our repo and force push to it.
   - cd $TRAVIS_BUILD_DIR
@@ -127,7 +128,7 @@ script:
   # likes to exit with odd codes if you run multiple classes at once.
   # You may have to run one class at a time.
   #
-  - drush @pantheon.$PNAME.$PSITE test-run MyTestClass --strict=0
+  - drush @pantheon.$PNAME.$PSITE
   - drush @pantheon.$PNAME.$PSITE test-run MyTestClass2 --strict=0
 
 after_script:
