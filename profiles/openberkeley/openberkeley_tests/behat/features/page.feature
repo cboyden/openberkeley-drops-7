@@ -4,7 +4,7 @@ Feature: Create content
   I need to be able to create a basic content page
 
   Background:
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
       And I wait 5 seconds
       And Panopoly magic live previews are disabled
     When I visit "/node/add/openberkeley-content-page"

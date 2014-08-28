@@ -4,7 +4,7 @@
   I need to be able to trust that pathauto works consistently
 
   Background:
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
       And Panopoly magic live previews are disabled
     When I visit "/node/add/panopoly-test-page"
       And I fill in the following:

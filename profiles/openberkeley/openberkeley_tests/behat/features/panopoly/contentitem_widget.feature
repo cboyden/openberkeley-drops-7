@@ -5,7 +5,7 @@ Feature: Add content item
  
   @api @javascript @panopoly_widgets
   Scenario: Add content item
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
       And Panopoly magic live previews are disabled
       And "panopoly_test_page" nodes:
       | title       | body      | created            | status |

@@ -4,7 +4,7 @@ Feature: Link to page on the site
   I need to be able to use the Linkit function
 
   Background:
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
       And a "panopoly_test_page" node with the title "Linkit Target"
     When I visit "/node/add/panopoly-test-page"
       And I fill in the following:
