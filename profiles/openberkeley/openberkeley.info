@@ -21,29 +21,23 @@ dependencies[] = file
 dependencies[] = dblog
 dependencies[] = update
 
-; Panopoly Foundation
+; Panopoly Foundation and Toolset
 dependencies[] = panopoly_core
 dependencies[] = panopoly_images
 dependencies[] = panopoly_theme
 dependencies[] = panopoly_magic
 dependencies[] = panopoly_widgets
 dependencies[] = panopoly_users
-; Not be used by Open Berkeley:
-; dependencies[] = panopoly_admin
-
-; Panopoly Toolset
+dependencies[] = panopoly_search
 dependencies[] = panopoly_wysiwyg
 
-; TBD if used with Open Berkeley
-; dependencies[] = panopoly_search
-
-; Not used by Open Berkeley:
+; Not be used by Open Berkeley:
+; dependencies[] = panopoly_admin
 ; dependencies[] = panopoly_pages
 
 ; Panopoly Recommended - Admin & UI
 ; These commented items are not used by Open Berkeley
 ; dependencies[] = navbar
-; dependencies[] = admin_menu  
 dependencies[] = breakpoints
 dependencies[] = backports
 dependencies[] = simplified_menu_admin
@@ -63,7 +57,6 @@ dependencies[] = apps
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; UCB - Custom
-dependencies[] = ucberkeley_envconf
 dependencies[] = ucberkeley_cas
 
 ; Open Berkeley Foundation
@@ -72,6 +65,7 @@ dependencies[] = openberkeley_pages
 dependencies[] = openberkeley_update
 dependencies[] = openberkeley_wysiwyg_override
 dependencies[] = openberkeley_core_override
+dependencies[] = openberkeley_media
 
 ; Open Berkeley Recommended
 dependencies[] = openberkeley_admin
@@ -86,16 +80,13 @@ dependencies[] = openberkeley_faq
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; ***** OB not in Panopoly *****
-; dependencies[] = backup_migrate   ;TODO: Delete once openberkeley_admin has been tested.
-dependencies[] = bundle_copy
 dependencies[] = config_perms
 dependencies[] = diff
 dependencies[] = email
-dependencies[] = entity_view_mode
+; dependencies[] = entity_view_mode ;TODO: Delete once openberkeley_media has been tested.
 dependencies[] = extlink
 ; dependencies[] = faq  ;TODO: Delete once openberkeley_faq has been tested.
 dependencies[] = features_override
-; dependencies[] = googleanalytics  ;TODO: Delete once openberkeley_admin has been tested.
 dependencies[] = nice_menus
 dependencies[] = pathologic
 
