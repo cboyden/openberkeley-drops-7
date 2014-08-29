@@ -47,29 +47,13 @@ function openberkeley_admin_menu() {
     'page callback' => 'openberkeley_admin_node_add_page',
     'access callback' => '_node_add_access',
     'type' => MENU_LOCAL_ACTION,
-    'tab_parent' => 'admin/dashboard/content'
-    //'file' => 'node.pages.inc',
-    //'file path' => drupal_get_path('module', 'node'),
+    'tab_parent' => 'admin/dashboard/content',
+    'file' => 'openberkeley_admin.admin.inc',
+    'file path' => drupal_get_path('module', 'openberkeley_admin'),
   );
 
   return $items;
 }
-
-function openberkeley_admin_node_add_page() {
-  $item = menu_get_item('node/add');
-  $content = system_admin_menu_block($item);
-  // Bypass the node/add listing if only one content type is available.
-  if (count($content) == 1) {
-    $item = array_shift($content);
-    drupal_goto($item['href']);
-  }
-  return theme('node_add_list', array('content' => $content));
-}
-
-function openberkeley_admin_page() {
-  return "test";
-}
-
 
 /**
  * Implements hook_menu_local_tasks_alter().
