@@ -42,8 +42,53 @@ function openberkeley_admin_menu() {
     'file path' => drupal_get_path('module', 'openberkeley_admin'),
   );
 
+  $items['admin/dashboard/content/add'] = array(
+    'title' => 'Add content',
+    'page callback' => 'openberkeley_admin_node_add_page',
+    'access callback' => '_node_add_access',
+    'type' => MENU_LOCAL_ACTION,
+    'tab_parent' => 'admin/dashboard/content'
+    //'file' => 'node.pages.inc',
+    //'file path' => drupal_get_path('module', 'node'),
+  );
+
   return $items;
 }
+
+function openberkeley_admin_node_add_page() {
+  $item = menu_get_item('node/add');
+  $content = system_admin_menu_block($item);
+  // Bypass the node/add listing if only one content type is available.
+  if (count($content) == 1) {
+    $item = array_shift($content);
+    drupal_goto($item['href']);
+  }
+  return theme('node_add_list', array('content' => $content));
+}
+
+function openberkeley_admin_page() {
+  return "test";
+}
+
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+/*
+function openberkeley_admin_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Add action link to 'node/add' on 'admin/content' page.
+  if ($root_path == 'admin/dashboard') {
+    $item = menu_get_item('node/add');
+    if ($item['access']) {
+      $data['actions']['output'][] = array(
+        '#theme' => 'menu_local_action',
+        '#link' => $item,
+      );
+    }
+  }
+}
+*/
+
 
 /**
  * Implements hook_menu_alter().
