@@ -42,6 +42,22 @@ function openberkeley_admin_menu() {
     'file path' => drupal_get_path('module', 'openberkeley_admin'),
   );
 
+  node_type_cache_reset();
+  foreach (node_type_get_types() as $type) {
+    $type_url_str = str_replace('_', '-', $type->type);
+    $items['admin/dashboard/content/' . $type_url_str] = array(
+      'title' => 'Add ' . $type->name,
+      'title callback' => 'check_plain',
+      'page callback' => 'node_add',
+      'page arguments' => array($type->type),
+      'access callback' => 'node_access',
+      'access arguments' => array('create', $type->type),
+      'description' => $type->description,
+      'file' => 'node.pages.inc',
+      'file path' => drupal_get_path('module', 'node'),
+    );
+  }
+
   $items['admin/dashboard/content/add'] = array(
     'title' => 'Add content',
     'page callback' => 'openberkeley_admin_node_add_page',
@@ -55,24 +71,17 @@ function openberkeley_admin_menu() {
   return $items;
 }
 
-/**
- * Implements hook_menu_local_tasks_alter().
- */
-/*
-function openberkeley_admin_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-  // Add action link to 'node/add' on 'admin/content' page.
-  if ($root_path == 'admin/dashboard') {
-    $item = menu_get_item('node/add');
-    if ($item['access']) {
-      $data['actions']['output'][] = array(
-        '#theme' => 'menu_local_action',
-        '#link' => $item,
-      );
-    }
+function openberkeley_admin_admin_menu_output_alter(&$content) {
+  // Check if index menu is defined in $content and is array
+  if( !isset($content['menu']) || !is_array($content['menu']) ) {
+    return;
+  }
+  if ((array_key_exists('admin/dashboard', $content['menu'])) &&
+  (array_key_exists('admin/dashboard/content', $content['menu']['admin/dashboard'])) &&
+  (array_key_exists('admin/dashboard/content/add', $content['menu']['admin/dashboard']['admin/dashboard/content']))) {
+    unset($content['menu']['admin/dashboard']['admin/dashboard/content']['admin/dashboard/content/add']);
   }
 }
-*/
-
 
 /**
  * Implements hook_menu_alter().
