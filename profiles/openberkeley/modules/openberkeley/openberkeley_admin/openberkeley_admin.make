@@ -35,5 +35,10 @@ projects[ucberkeley_envconf][subdir] = ucb
 projects[ucberkeley_envconf][download][type] = file
 projects[ucberkeley_envconf][download][url] = https://github.com/ucb-ist-drupal/ucberkeley_envconf-7/releases/download/7.x-2.0-alpha1/ucberkeley_envconf-7.x-2.0-alpha1.tar.gz
 
+projects[views_bulk_operations][version] = 3.x-dev
+projects[views_bulk_operations][subdir] = contrib
+projects[views_bulk_operations][download][type] = git
+projects[views_bulk_operations][download][revision] = 38dfd2d
+projects[views_bulk_operations][download][branch] = 7.x-3.x
 
 
