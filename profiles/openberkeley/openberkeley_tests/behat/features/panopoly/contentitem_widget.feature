@@ -18,6 +18,7 @@ Feature: Add content item
     When I fill in the following:
       | exposed[title]        | Test Page 1 |
     When I select "Test Page" from "exposed[type]"
+      And I wait 5 seconds
       And I press "Save" in the "CTools modal" region
       And I press "Save"
       And I wait for the Panels IPE to deactivate
