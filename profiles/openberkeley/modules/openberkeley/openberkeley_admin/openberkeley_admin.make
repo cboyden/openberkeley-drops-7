@@ -35,6 +35,10 @@ projects[ucberkeley_envconf][subdir] = ucb
 projects[ucberkeley_envconf][download][type] = file
 projects[ucberkeley_envconf][download][url] = https://github.com/ucb-ist-drupal/ucberkeley_envconf-7/releases/download/7.x-2.0-alpha1/ucberkeley_envconf-7.x-2.0-alpha1.tar.gz
 
+; Views Bulk Operations is provided here in case this feature is not built by
+; openberkeley-*.make.  When this recipe is updated it should also be updated
+; in openberkeley-*.make.  It exists there to ensure that the vbo recipe in
+; panopoly_magic is overridden.
 projects[views_bulk_operations][version] = 3.x-dev
 projects[views_bulk_operations][subdir] = contrib
 projects[views_bulk_operations][download][type] = git
