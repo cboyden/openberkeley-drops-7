@@ -59,6 +59,7 @@ features[user_permission][] = access own broken links report
 features[user_permission][] = administer backup and migrate
 features[user_permission][] = administer linkchecker
 features[user_permission][] = administer openberkeley settings
+features[user_permission][] = administer redirects
 features[user_permission][] = administer spotlight settings
 features[user_permission][] = administer total control
 features[user_permission][] = delete backup files
