@@ -115,10 +115,10 @@ function openberkeley_admin_default_page_manager_pages() {
   $display->content['new-3a291315-f78f-4fc6-a274-a57d13205aed'] = $pane;
   $display->panels['left'][0] = 'new-3a291315-f78f-4fc6-a274-a57d13205aed';
   $pane = new stdClass();
-  $pane->pid = 'new-18263b21-be97-4de2-872a-fa9682b3e524';
+  $pane->pid = 'new-7e7a5840-fc05-4243-9ba7-22bdb58e6acb';
   $pane->panel = 'left';
-  $pane->type = 'overview_content';
-  $pane->subtype = 'overview_content';
+  $pane->type = 'block';
+  $pane->subtype = 'openberkeley_admin-openberkeley_content_overview';
   $pane->shown = TRUE;
   $pane->access = array(
     'plugins' => array(
@@ -133,19 +133,8 @@ function openberkeley_admin_default_page_manager_pages() {
     ),
   );
   $pane->configuration = array(
-    'types' => array(
-      'article' => 'article',
-      'page' => 'page',
-      'project' => 'project',
-      'video' => 'video',
-    ),
-    'comments' => array(
-      'article' => 'article',
-      'page' => 0,
-      'project' => 0,
-      'video' => 0,
-    ),
-    'spam' => 0,
+    'override_title' => 0,
+    'override_title_text' => '',
   );
   $pane->cache = array();
   $pane->style = array(
@@ -154,10 +143,10 @@ function openberkeley_admin_default_page_manager_pages() {
   $pane->css = array();
   $pane->extras = array();
   $pane->position = 1;
-  $pane->locks = '';
-  $pane->uuid = '18263b21-be97-4de2-872a-fa9682b3e524';
-  $display->content['new-18263b21-be97-4de2-872a-fa9682b3e524'] = $pane;
-  $display->panels['left'][1] = 'new-18263b21-be97-4de2-872a-fa9682b3e524';
+  $pane->locks = array();
+  $pane->uuid = '7e7a5840-fc05-4243-9ba7-22bdb58e6acb';
+  $display->content['new-7e7a5840-fc05-4243-9ba7-22bdb58e6acb'] = $pane;
+  $display->panels['left'][1] = 'new-7e7a5840-fc05-4243-9ba7-22bdb58e6acb';
   $pane = new stdClass();
   $pane->pid = 'new-85997bed-3d0f-4c6e-be78-1eb86fc64618';
   $pane->panel = 'left';
@@ -258,28 +247,6 @@ function openberkeley_admin_default_page_manager_pages() {
   $pane->uuid = 'fcf2d600-7fc2-4119-bf69-e1c6518d0be8';
   $display->content['new-fcf2d600-7fc2-4119-bf69-e1c6518d0be8'] = $pane;
   $display->panels['left'][4] = 'new-fcf2d600-7fc2-4119-bf69-e1c6518d0be8';
-  $pane = new stdClass();
-  $pane->pid = 'new-e78d49e2-97f9-4fc4-b71c-d37c13861418';
-  $pane->panel = 'left';
-  $pane->type = 'block';
-  $pane->subtype = 'openberkeley_admin-openberkeley_create_content';
-  $pane->shown = TRUE;
-  $pane->access = array();
-  $pane->configuration = array(
-    'override_title' => 0,
-    'override_title_text' => '',
-  );
-  $pane->cache = array();
-  $pane->style = array(
-    'settings' => NULL,
-  );
-  $pane->css = array();
-  $pane->extras = array();
-  $pane->position = 5;
-  $pane->locks = array();
-  $pane->uuid = 'e78d49e2-97f9-4fc4-b71c-d37c13861418';
-  $display->content['new-e78d49e2-97f9-4fc4-b71c-d37c13861418'] = $pane;
-  $display->panels['left'][5] = 'new-e78d49e2-97f9-4fc4-b71c-d37c13861418';
   $pane = new stdClass();
   $pane->pid = 'new-a76901d1-8d37-42b8-9033-6eaa893a2da6';
   $pane->panel = 'right';
