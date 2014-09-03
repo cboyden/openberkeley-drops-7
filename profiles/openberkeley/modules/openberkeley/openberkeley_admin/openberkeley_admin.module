@@ -82,12 +82,13 @@ function openberkeley_admin_menu() {
 
 function openberkeley_admin_admin_menu_output_alter(&$content) {
   // Check if index menu is defined in $content and is array
-  if( !isset($content['menu']) || !is_array($content['menu']) ) {
+  if (!isset($content['menu']) || !is_array($content['menu'])) {
     return;
   }
   if ((array_key_exists('admin/dashboard', $content['menu'])) &&
-  (array_key_exists('admin/dashboard/content', $content['menu']['admin/dashboard'])) &&
-  (array_key_exists('admin/dashboard/content/add', $content['menu']['admin/dashboard']['admin/dashboard/content']))) {
+    (array_key_exists('admin/dashboard/content', $content['menu']['admin/dashboard'])) &&
+    (array_key_exists('admin/dashboard/content/add', $content['menu']['admin/dashboard']['admin/dashboard/content']))
+  ) {
     unset($content['menu']['admin/dashboard']['admin/dashboard/content']['admin/dashboard/content/add']);
   }
 }
@@ -102,7 +103,6 @@ function openberkeley_admin_menu_alter(&$items) {
   $items['node/add/openberkeley-content-page']['weight'] = -10;
   $items['node/add/openberkeley-landing-page']['weight'] = -8;
 }
-
 
 function openberkeley_admin_menu_role_access() {
   global $user;
@@ -250,6 +250,7 @@ function openberkeley_admin_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function openberkeley_admin_block_info() {
+  $blocks['openberkeley_create_content']['info'] = t('Open Berkeley: Create Content');
   $blocks['url_administration']['info'] = t('URL Administration');
   $blocks['other_administration']['info'] = t('Other Administration');
   $blocks['backups']['info'] = t('Backups');
@@ -260,10 +261,13 @@ function openberkeley_admin_block_info() {
 function openberkeley_admin_block_view($delta = '') {
   // The $delta parameter tells us which block is being requested.
   switch ($delta) {
+    case 'openberkeley_create_content':
+      $block['subject'] = t('Create Content');
+      $block['content'] = openberkeley_admin_block_create_content_content();
+      break;
     case 'other_administration':
       $block['subject'] = t('Other Administration');
       $block['content'] = openberkeley_admin_block_other_administration_content();
-      //$block['content'] = '<b>test content</b>';
       break;
     case 'url_administration':
       $block['subject'] = t('URL Administration');
@@ -276,6 +280,11 @@ function openberkeley_admin_block_view($delta = '') {
   }
 
   return $block;
+}
+
+function openberkeley_admin_block_create_content_content() {
+  include 'openberkeley_admin.admin.inc';
+  return openberkeley_admin_node_add_page();
 }
 
 function openberkeley_admin_block_url_administration_content() {

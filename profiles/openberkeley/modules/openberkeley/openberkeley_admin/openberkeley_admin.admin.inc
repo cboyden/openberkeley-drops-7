@@ -29,5 +29,6 @@ function openberkeley_admin_node_add_page() {
     $item = array_shift($content);
     drupal_goto($item['href']);
   }
+
   return theme('node_add_list', array('content' => $content));
 }
