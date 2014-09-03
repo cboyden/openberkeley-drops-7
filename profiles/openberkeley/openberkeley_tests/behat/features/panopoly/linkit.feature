@@ -11,6 +11,15 @@ Feature: Link to page on the site
         | Title  | Testing Linkit       |
         | Editor | panopoly_wysiwyg_text |
 
+  # For some inexplicable reason this is necessary on Travis-CI. Without it,
+  # the first test always fails: it can't find the "Bryant Content" region.
+  @api @panopoly_wysiwyg
+  Scenario: Fix issues on Travis-CI (not Chrome)
+    # Normally, here we'd press "Publish", however some child distribtions
+    # don't use 'save_draft', and this makes this test compatible with them.
+    #When I press "Publish"
+    When I press "edit-submit"
+
   @api @javascript @panopoly_wysiwyg
   Scenario: Add a link to an internal page
     When I click the "Linkit" button in the "edit-body-und-0-value" WYSIWYG editor
