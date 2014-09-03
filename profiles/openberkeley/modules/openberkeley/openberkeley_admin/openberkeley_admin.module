@@ -45,6 +45,14 @@ function openberkeley_admin_menu() {
   node_type_cache_reset();
   foreach (node_type_get_types() as $type) {
     $type_url_str = str_replace('_', '-', $type->type);
+    // Attempt to order the comment page items at the top
+    $weight = 0;
+    if ($type_url_str == 'openberkeley-content-page') {
+      $weight = -10;
+    }
+    if ($type_url_str == 'openberkeley-landing-page') {
+      $weight = -8;
+    }
     $items['admin/dashboard/content/' . $type_url_str] = array(
       'title' => 'Add ' . $type->name,
       'title callback' => 'check_plain',
@@ -55,6 +63,7 @@ function openberkeley_admin_menu() {
       'description' => $type->description,
       'file' => 'node.pages.inc',
       'file path' => drupal_get_path('module', 'node'),
+      'weight' => $weight,
     );
   }
 
@@ -89,6 +98,9 @@ function openberkeley_admin_admin_menu_output_alter(&$content) {
 function openberkeley_admin_menu_alter(&$items) {
   $items['admin/content']['access callback'] = 'openberkeley_admin_menu_role_access';
   $items['node/add']['access callback'] = 'openberkeley_admin_menu_role_access';
+  // order common page items at top
+  $items['node/add/openberkeley-content-page']['weight'] = -10;
+  $items['node/add/openberkeley-landing-page']['weight'] = -8;
 }
 
 
