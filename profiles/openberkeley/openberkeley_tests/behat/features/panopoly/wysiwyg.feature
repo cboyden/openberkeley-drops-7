@@ -4,7 +4,7 @@ Feature: Use rich text editor
   I need to be able to use a WYSIWYG editor
 
   Background:
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
     When I visit "/node/add/panopoly-test-page"
       And I fill in the following:
         | Title  | Testing WYSIWYG       |

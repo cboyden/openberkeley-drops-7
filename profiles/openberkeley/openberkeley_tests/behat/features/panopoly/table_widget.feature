@@ -4,7 +4,7 @@ Feature: Add table widget
   I need to be able to use the table widget
 
   Background:
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
       And Panopoly magic live previews are disabled
       And I am viewing a landing page
     When I customize this page with the Panels IPE

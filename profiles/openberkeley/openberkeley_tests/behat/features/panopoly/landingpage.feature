@@ -6,7 +6,7 @@ Feature: Add landing page
   # @javascript is needed for the machine name
   @api @javascript @panopoly_pages
   Scenario: Add a landing page
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
     When I visit "/node/add/landing_page"
       And I fill in the following:
         | Title | Testing [random] landing page title |

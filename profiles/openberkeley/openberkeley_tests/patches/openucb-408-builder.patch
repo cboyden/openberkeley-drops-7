@@ -1,0 +1,203 @@
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/contentitem_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/contentitem_widget.feature
+@@ -5,7 +5,7 @@ Feature: Add content item
+  
+   @api @javascript @panopoly_widgets
+   Scenario: Add content item
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And "panopoly_test_page" nodes:
+       | title       | body      | created            | status |
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/contentlist_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/contentlist_widget.feature
+@@ -5,7 +5,7 @@ Feature: Add content list widget
+  
+   @api @javascript @panopoly_widgets
+   Scenario: Add a content list
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And "panopoly_test_page" nodes:
+       | title       | body      | created            | status |
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/contentpage.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/contentpage.feature
+@@ -4,7 +4,7 @@ Feature: Add content page
+   I need to be able create a content page
+ 
+   Background: 
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+     When I visit "/node/add/panopoly-page"
+       And I fill in the following:
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/file_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/file_widget.feature
+@@ -4,7 +4,7 @@ Feature: Add a file to a page
+   I need to be able to use the file widget
+ 
+   Background:
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/image_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/image_widget.feature
+@@ -5,7 +5,7 @@ Feature: Add image widget
+  
+   @api @javascript @panopoly_widgets
+   Scenario: Add a image
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/landingpage.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/landingpage.feature
+@@ -6,7 +6,7 @@ Feature: Add landing page
+   # @javascript is needed for the machine name
+   @api @javascript @panopoly_pages
+   Scenario: Add a landing page
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+     When I visit "/node/add/landing_page"
+       And I fill in the following:
+         | Title | Testing [random] landing page title |
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/linkit.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/linkit.feature
+@@ -4,7 +4,7 @@ Feature: Link to page on the site
+   I need to be able to use the Linkit function
+ 
+   Background:
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And a "panopoly_test_page" node with the title "Linkit Target"
+     When I visit "/node/add/panopoly-test-page"
+       And I fill in the following:
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/links_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/links_widget.feature
+@@ -5,7 +5,7 @@ Feature: Add links widget
+  
+   @api @javascript @panopoly_widgets
+   Scenario: Add links
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/livepreview.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/livepreview.feature
+@@ -5,7 +5,7 @@ Feature: Live preview
+ 
+   @api @javascript @panopoly_magic @panopoly_widgets
+   Scenario: Automatic live preview should show changes immediately
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are automatic
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+@@ -36,7 +36,7 @@ Feature: Live preview
+ 
+   @api @javascript @panopoly_magic @panopoly_widgets
+   Scenario: Live preview should work with views
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And "panopoly_test_page" nodes:
+       | title       | body      | created            | status |
+       | Test Page 3 | Test body | 01/01/2001 11:00am |      1 |
+@@ -111,7 +111,7 @@ Feature: Live preview
+ 
+   @api @javascript @panopoly_magic @panopoly_widgets
+   Scenario: Manual live preview should show changes when requested
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are manual
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+@@ -126,7 +126,7 @@ Feature: Live preview
+ 
+   @api @javascript @panopoly_magic @panopoly_widgets
+   Scenario: Automatic live preview should validation errors immediately
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are automatic
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/maps_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/maps_widget.feature
+@@ -5,7 +5,7 @@ Feature: Add map widget
+  
+   @api @javascript @panopoly_widgets
+   Scenario: Add map to a page
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/pathauto.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/pathauto.feature
+@@ -4,7 +4,7 @@
+   I need to be able to trust that pathauto works consistently
+ 
+   Background:
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+     When I visit "/node/add/panopoly-test-page"
+       And I fill in the following:
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/spotlight_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/spotlight_widget.feature
+@@ -4,7 +4,7 @@ Feature: Add spotlight widget
+   I need to be able to add a spotlight
+ 
+   Background:
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/table_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/table_widget.feature
+@@ -4,7 +4,7 @@ Feature: Add table widget
+   I need to be able to use the table widget
+ 
+   Background:
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/text_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/text_widget.feature
+@@ -5,7 +5,7 @@ Feature: Add text widget
+  
+   @api @javascript @panopoly_widgets
+   Scenario: Add text to a page
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/video_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/video_widget.feature
+@@ -4,7 +4,7 @@ Feature: Add video widget
+   I need to be able to use the video widget
+ 
+   Background:
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+       And Panopoly magic live previews are disabled
+       And I am viewing a landing page
+     When I customize this page with the Panels IPE
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/wysiwyg.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/wysiwyg.feature
+@@ -4,7 +4,7 @@ Feature: Use rich text editor
+   I need to be able to use a WYSIWYG editor
+ 
+   Background:
+-    Given I am logged in as a user with the "administrator" role
++    Given I am logged in as a user with the "builder" role
+     When I visit "/node/add/panopoly-test-page"
+       And I fill in the following:
+         | Title  | Testing WYSIWYG       |

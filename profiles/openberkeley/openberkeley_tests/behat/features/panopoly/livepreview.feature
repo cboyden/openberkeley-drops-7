@@ -5,7 +5,7 @@ Feature: Live preview
 
   @api @javascript @panopoly_magic @panopoly_widgets
   Scenario: Automatic live preview should show changes immediately
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
       And Panopoly magic live previews are automatic
       And I am viewing a landing page
     When I customize this page with the Panels IPE
@@ -36,7 +36,7 @@ Feature: Live preview
 
   @api @javascript @panopoly_magic @panopoly_widgets
   Scenario: Live preview should work with views
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
       And "panopoly_test_page" nodes:
       | title       | body      | created            | status |
       | Test Page 3 | Test body | 01/01/2001 11:00am |      1 |
@@ -111,7 +111,7 @@ Feature: Live preview
 
   @api @javascript @panopoly_magic @panopoly_widgets
   Scenario: Manual live preview should show changes when requested
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
       And Panopoly magic live previews are manual
       And I am viewing a landing page
     When I customize this page with the Panels IPE
@@ -126,7 +126,7 @@ Feature: Live preview
 
   @api @javascript @panopoly_magic @panopoly_widgets
   Scenario: Automatic live preview should validation errors immediately
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "builder" role
       And Panopoly magic live previews are automatic
       And I am viewing a landing page
     When I customize this page with the Panels IPE
