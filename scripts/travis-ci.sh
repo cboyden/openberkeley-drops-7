@@ -34,6 +34,7 @@ system_install() {
 
   # Set up file directories.
   header Setting up file directories
+  cd $BUILD_TOP/openberkeley-drops-7
   mkdir sites/default/files/private
   mkdir sites/default/files/temp
 
