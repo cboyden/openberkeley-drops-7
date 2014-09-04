@@ -158,15 +158,10 @@ projects[migrate][patch][2224297] = http://drupal.org/files/issues/2224297-desti
 
 
 ; Views Bulk Operations is provided here to ensure that the vbo recipe in
-; panopoly_magic is overridden. When this recipe is updated it should also be updated
-; in openberkeley_admin.make.  It exists there in case openberkeley_admin is
-; built from that makefile.
-projects[views_bulk_operations][version] = 3.x-dev
+; panopoly_magic is overridden. VBO is needed by openberkeley_admin
+projects[views_bulk_operations][version] = 3.2
 projects[views_bulk_operations][subdir] = contrib
-projects[views_bulk_operations][download][type] = git
-projects[views_bulk_operations][download][revision] = 38dfd2d
-projects[views_bulk_operations][download][branch] = 7.x-3.x
-
+projects[views_bulk_operations][patch][1618474] = https://www.drupal.org/files/issues/1618474-views-bulk-operations-hide-empty-operations-17.patch
 
 ; ***** End Updates Different from Panopoly *****
 ; ***********************************************
