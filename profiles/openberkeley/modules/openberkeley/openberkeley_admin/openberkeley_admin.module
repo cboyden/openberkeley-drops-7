@@ -329,7 +329,7 @@ function openberkeley_admin_block_content_overview_content() {
         }
       }
 
-      $line = array(l($object->name, $link_path, array('query' => array('type' => $object->type))), $type_count);
+      $line = array($object->name, $type_count, l("See all", $link_path, array('query' => array('type' => $object->type))));
       //TODO: fix the below if we want comments data
       //$line .= (isset($content_data[$type . '_comments']))? ' with ' . $content_data[$type . '_comments'] : '' ;
       //$line .= (isset($content_data[$type . '_comments_spam']))? ' (' . $content_data[$type . '_comments_spam'] . ')' : '' ;
@@ -342,7 +342,7 @@ function openberkeley_admin_block_content_overview_content() {
     }
   }
   $items = array_merge($highlights, $normals);
-  return theme('total_control_admin_table', array('header' => array('Type', 'Number'), 'rows' => $items, 'link' => l('Administer Content', $link_path, array('query' => array('type' => 'All')))));
+  return theme('total_control_admin_table', array('header' => array('Type', 'Number', 'Operations'), 'rows' => $items, 'link' => l('Administer Content', $link_path, array('query' => array('type' => 'All')))));
 
 }
 
