@@ -65,6 +65,7 @@ features[user_permission][] = administer total control
 features[user_permission][] = delete backup files
 features[user_permission][] = display drupal links
 features[user_permission][] = edit link settings
+features[user_permission][] = execute node_assign_owner_action
 features[user_permission][] = execute node_publish_action
 features[user_permission][] = execute node_unpublish_action
 features[user_permission][] = execute node_unpublish_by_keyword_action

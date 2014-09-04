@@ -300,6 +300,16 @@ function openberkeley_admin_user_default_permissions() {
     'module' => 'linkchecker',
   );
 
+  // Exported permission: 'execute node_assign_owner_action'.
+  $permissions['execute node_assign_owner_action'] = array(
+    'name' => 'execute node_assign_owner_action',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+    ),
+    'module' => 'actions_permissions',
+  );
+
   // Exported permission: 'execute node_publish_action'.
   $permissions['execute node_publish_action'] = array(
     'name' => 'execute node_publish_action',
