@@ -9,4 +9,4 @@ default:
       drupal:
         drupal_root: "/path/to/drupal/root"
       drush:
-        alias: local
+        alias: 'local'

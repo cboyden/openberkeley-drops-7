@@ -13,6 +13,7 @@ default:
       selenium2: ~
       # base_url: http://${drupal.uri}
       goutte: ~
+      files_path: ../
     Drupal\DrupalExtension\Extension:
       blackbox: ~
       api_driver: 'drupal'
