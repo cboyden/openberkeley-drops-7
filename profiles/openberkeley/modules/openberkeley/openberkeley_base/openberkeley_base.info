@@ -15,6 +15,7 @@ dependencies[] = features_override
 dependencies[] = fieldable_panels_panes
 dependencies[] = file_entity
 dependencies[] = filter
+dependencies[] = jquery_update
 dependencies[] = manualcrop
 dependencies[] = media_internet
 dependencies[] = menu
