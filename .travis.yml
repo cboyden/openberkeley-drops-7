@@ -1,0 +1,45 @@
+language: php
+
+php:
+  - 5.4
+
+mysql:
+  database: openberkeley
+  username: root
+  encoding: utf8
+
+matrix:
+  fast_finish: true
+
+install:
+  # Make some variables available to the travis-ci.sh script.
+  - export TRAVIS_BUILD_DIR
+
+  # Copy the script into a stable location.
+  - cp profiles/openberkeley/scripts/travis-ci.sh $HOME/
+
+  # Make sure execute permissions are set on the script.
+
+  - chmod +x $HOME/travis-ci.sh
+
+  # Move to the directory above, where we should remain.
+  - cd ..
+
+  # Start by doing system installation.
+  - $HOME/travis-ci.sh system-install
+
+before_script:
+  - $HOME/travis-ci.sh before-tests
+
+script:
+  - $HOME/travis-ci.sh run-tests
+
+after_script:
+  - $HOME/travis-ci.sh after-tests
+
+notifications:
+  email:
+    recipients:
+      - cboyden@lists.berkeley.edu
+    on_success: always
+    on_failure: always
