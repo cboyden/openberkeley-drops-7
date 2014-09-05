@@ -112,6 +112,7 @@ function openberkeley_admin_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'builder' => 'builder',
+      'contributor' => 'contributor',
       'editor' => 'editor',
     ),
     'module' => 'openberkeley_admin',
@@ -158,7 +159,6 @@ function openberkeley_admin_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'builder' => 'builder',
-      'editor' => 'editor',
     ),
     'module' => 'openberkeley_admin',
   );
@@ -179,7 +179,6 @@ function openberkeley_admin_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'builder' => 'builder',
-      'editor' => 'editor',
     ),
     'module' => 'openberkeley_admin',
   );
@@ -244,6 +243,16 @@ function openberkeley_admin_user_default_permissions() {
     'module' => 'openberkeley_admin',
   );
 
+  // Exported permission: 'administer redirects'.
+  $permissions['administer redirects'] = array(
+    'name' => 'administer redirects',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+    ),
+    'module' => 'redirect',
+  );
+
   // Exported permission: 'administer spotlight settings'.
   $permissions['administer spotlight settings'] = array(
     'name' => 'administer spotlight settings',
@@ -291,13 +300,22 @@ function openberkeley_admin_user_default_permissions() {
     'module' => 'linkchecker',
   );
 
+  // Exported permission: 'execute node_assign_owner_action'.
+  $permissions['execute node_assign_owner_action'] = array(
+    'name' => 'execute node_assign_owner_action',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+    ),
+    'module' => 'actions_permissions',
+  );
+
   // Exported permission: 'execute node_publish_action'.
   $permissions['execute node_publish_action'] = array(
     'name' => 'execute node_publish_action',
     'roles' => array(
       'administrator' => 'administrator',
       'builder' => 'builder',
-      'editor' => 'editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -308,7 +326,6 @@ function openberkeley_admin_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'builder' => 'builder',
-      'editor' => 'editor',
     ),
     'module' => 'actions_permissions',
   );
