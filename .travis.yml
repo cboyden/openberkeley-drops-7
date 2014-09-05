@@ -16,7 +16,7 @@ install:
   - export TRAVIS_BUILD_DIR
 
   # Copy the script into a stable location.
-  - cp scripts/travis-ci.sh $HOME/
+  - cp profiles/openberkeley/scripts/travis-ci.sh $HOME/
 
   # Make sure execute permissions are set on the script.
 
