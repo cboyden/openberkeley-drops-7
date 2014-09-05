@@ -42,7 +42,55 @@ function openberkeley_admin_menu() {
     'file path' => drupal_get_path('module', 'openberkeley_admin'),
   );
 
+  node_type_cache_reset();
+  foreach (node_type_get_types() as $type) {
+    $type_url_str = str_replace('_', '-', $type->type);
+    // Attempt to order the comment page items at the top
+    $weight = 0;
+    if ($type_url_str == 'openberkeley-content-page') {
+      $weight = -10;
+    }
+    if ($type_url_str == 'openberkeley-landing-page') {
+      $weight = -8;
+    }
+    $items['admin/dashboard/content/' . $type_url_str] = array(
+      'title' => 'Add ' . $type->name,
+      'title callback' => 'check_plain',
+      'page callback' => 'node_add',
+      'page arguments' => array($type->type),
+      'access callback' => 'node_access',
+      'access arguments' => array('create', $type->type),
+      'description' => $type->description,
+      'file' => 'node.pages.inc',
+      'file path' => drupal_get_path('module', 'node'),
+      'weight' => $weight,
+    );
+  }
+
+  $items['admin/dashboard/content/add'] = array(
+    'title' => 'Add content',
+    'page callback' => 'openberkeley_admin_node_add_page',
+    'access callback' => '_node_add_access',
+    'type' => MENU_LOCAL_ACTION,
+    'tab_parent' => 'admin/dashboard/content',
+    'file' => 'openberkeley_admin.admin.inc',
+    'file path' => drupal_get_path('module', 'openberkeley_admin'),
+  );
+
   return $items;
+}
+
+function openberkeley_admin_admin_menu_output_alter(&$content) {
+  // Check if index menu is defined in $content and is array
+  if (!isset($content['menu']) || !is_array($content['menu'])) {
+    return;
+  }
+  if ((array_key_exists('admin/dashboard', $content['menu'])) &&
+    (array_key_exists('admin/dashboard/content', $content['menu']['admin/dashboard'])) &&
+    (array_key_exists('admin/dashboard/content/add', $content['menu']['admin/dashboard']['admin/dashboard/content']))
+  ) {
+    unset($content['menu']['admin/dashboard']['admin/dashboard/content']['admin/dashboard/content/add']);
+  }
 }
 
 /**
@@ -51,8 +99,10 @@ function openberkeley_admin_menu() {
 function openberkeley_admin_menu_alter(&$items) {
   $items['admin/content']['access callback'] = 'openberkeley_admin_menu_role_access';
   $items['node/add']['access callback'] = 'openberkeley_admin_menu_role_access';
+  // order common page items at top
+  $items['node/add/openberkeley-content-page']['weight'] = -10;
+  $items['node/add/openberkeley-landing-page']['weight'] = -8;
 }
-
 
 function openberkeley_admin_menu_role_access() {
   global $user;
@@ -200,6 +250,8 @@ function openberkeley_admin_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function openberkeley_admin_block_info() {
+  $blocks['openberkeley_create_content']['info'] = t('Open Berkeley: Create Content');
+  $blocks['openberkeley_content_overview']['info'] = t('Open Berkeley: Content Overview');
   $blocks['url_administration']['info'] = t('URL Administration');
   $blocks['other_administration']['info'] = t('Other Administration');
   $blocks['backups']['info'] = t('Backups');
@@ -210,10 +262,17 @@ function openberkeley_admin_block_info() {
 function openberkeley_admin_block_view($delta = '') {
   // The $delta parameter tells us which block is being requested.
   switch ($delta) {
+    case 'openberkeley_create_content':
+      $block['subject'] = t('Create Content');
+      $block['content'] = openberkeley_admin_block_create_content_content();
+      break;
+    case 'openberkeley_content_overview':
+      $block['subject'] = t('Content Overview');
+      $block['content'] = openberkeley_admin_block_content_overview_content();
+      break;
     case 'other_administration':
       $block['subject'] = t('Other Administration');
       $block['content'] = openberkeley_admin_block_other_administration_content();
-      //$block['content'] = '<b>test content</b>';
       break;
     case 'url_administration':
       $block['subject'] = t('URL Administration');
@@ -226,6 +285,65 @@ function openberkeley_admin_block_view($delta = '') {
   }
 
   return $block;
+}
+
+function openberkeley_admin_block_create_content_content() {
+  include 'openberkeley_admin.admin.inc';
+  return openberkeley_admin_node_add_page();
+}
+
+/**
+ * Customizaton of total_control_get_content_overview
+ *
+ * @see total_control.inc
+ * @param array $conf
+ * @return string
+ */
+function openberkeley_admin_block_content_overview_content() {
+  $conf = array('types' => array());
+  $items = array();
+  $types = node_type_get_types();
+  $comments_exist = module_exists('comment');
+  $link_path = 'admin/dashboard/content';
+  $highlight_types = array('openberkeley_content_page', 'openberkeley_landing_page');
+
+  foreach ($types as $type => $object) {
+    // Compare against type option on pane config.
+    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type] == $type)) {
+      $type_count = db_query("SELECT count(*) FROM {node} WHERE type = :type and status = 1", array(':type' => $type))->fetchField();
+      $content_data[$type] = format_plural($type_count, '1 ' . $object->name . ' item', '@count ' . $object->name . ' items');
+
+      // Check if comments module is enabled.
+      if ($comments_exist) {
+
+        // Compare against comment options on pane config.
+        if (array_key_exists($type, $conf['comments']) && $conf['comments'][$type] === $type) {
+          $comment_count = db_query("SELECT count(DISTINCT cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 1 AND n.status = 1", array(':type' => $type))->fetchField();
+          $content_data[$type . '_comments'] = format_plural($comment_count, '1 comment', '@count comments');
+
+          // Compare against spam option checkbox on pane config.
+          if (isset($conf['spam']) && $conf['spam'] == 1) {
+            $spam_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 0 AND n.status = 1", array(':type' => $type))->fetchField();
+            $content_data[$type . '_comments_spam'] = format_plural($spam_count, '1 spam', '@count spam');
+          }
+        }
+      }
+
+      $line = array($object->name, $type_count, l("See all", $link_path, array('query' => array('type' => $object->type))));
+      //TODO: fix the below if we want comments data
+      //$line .= (isset($content_data[$type . '_comments']))? ' with ' . $content_data[$type . '_comments'] : '' ;
+      //$line .= (isset($content_data[$type . '_comments_spam']))? ' (' . $content_data[$type . '_comments_spam'] . ')' : '' ;
+      if (in_array($object->type, $highlight_types)) {
+        $highlights[] = $line;
+      }
+      else {
+        $normals[] = $line;
+      }
+    }
+  }
+  $items = array_merge($highlights, $normals);
+  return theme('total_control_admin_table', array('header' => array('Type', 'Number', 'Operations'), 'rows' => $items, 'link' => l('Administer Content', $link_path, array('query' => array('type' => 'All')))));
+
 }
 
 function openberkeley_admin_block_url_administration_content() {

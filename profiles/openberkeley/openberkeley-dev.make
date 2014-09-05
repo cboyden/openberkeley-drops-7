@@ -15,7 +15,6 @@ projects[openberkeley_admin][subdir] = openberkeley
 projects[openberkeley_admin][download][type] = git
 projects[openberkeley_admin][download][url] = git://github.com/ucb-ist-drupal/openberkeley_admin.git
 
-
 projects[openberkeley_base][type] = module
 projects[openberkeley_base][subdir] = openberkeley
 projects[openberkeley_base][download][type] = git
@@ -161,6 +160,13 @@ projects[migrate][version] = 2.5
 projects[migrate][subdir] = contrib
 ; Include Dave Reid's patch for Block support.
 projects[migrate][patch][2224297] = http://drupal.org/files/issues/2224297-destination-block-custom_0.patch
+
+
+; Views Bulk Operations is provided here to ensure that the vbo recipe in
+; panopoly_magic is overridden. VBO is needed by openberkeley_admin
+projects[views_bulk_operations][version] = 3.2
+projects[views_bulk_operations][subdir] = contrib
+projects[views_bulk_operations][patch][1618474] = https://www.drupal.org/files/issues/1618474-views-bulk-operations-hide-empty-operations-17.patch
 
 ; ***** End Updates Different from Panopoly *****
 ; ***********************************************

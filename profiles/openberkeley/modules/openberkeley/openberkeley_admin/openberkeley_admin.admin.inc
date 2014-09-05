@@ -15,3 +15,20 @@ function openberkeley_admin_openberkeley_settings_page() {
 
   return $output;
 }
+
+/**
+ * Re-implement node_add_page
+ *
+ * @return string
+ */
+function openberkeley_admin_node_add_page() {
+  $item = menu_get_item('node/add');
+  $content = system_admin_menu_block($item);
+  // Bypass the node/add listing if only one content type is available.
+  if (count($content) == 1) {
+    $item = array_shift($content);
+    drupal_goto($item['href']);
+  }
+
+  return theme('node_add_list', array('content' => $content));
+}
