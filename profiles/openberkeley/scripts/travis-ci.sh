@@ -36,7 +36,7 @@ system_install() {
   if [[ "$MAKEFILE" != false ]]; then
     header Running build script
     cd $BUILD_TOP/openberkeley-drops-7/profiles/openberkeley
-    echo "3" | ./rebuild.sh
+    echo "3" | bash ./rebuild.sh
   fi
 
 
