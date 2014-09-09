@@ -32,6 +32,14 @@ system_install() {
   drush dl -y drupalorg_drush-7.x-1.x-dev --destination=$HOME/.drush
   drush cc drush
 
+  # Run the build script and makefile, if needed.
+  if [[ "$MAKEFILE" != false ]]; then
+    header Running build script
+    cd $BUILD_TOP/openberkeley-drops-7/profiles/openberkeley
+    echo "3" | ./rebuild.sh
+  fi
+
+
   # Set up file directories.
   header Setting up file directories
   cd $BUILD_TOP/openberkeley-drops-7
