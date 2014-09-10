@@ -192,6 +192,7 @@ function openberkeley_update_dependencies() {
     // Make sure new cache tables exist.
     'panels' => 7303,
     'fieldable_panels_panes' => 7107,
+    'panelizer' => 7109,
     // We need to run the faq update that copies data into a new field before
     // we enable openberkeley_faq, which would create the same field.
     'faq' => 7002,
