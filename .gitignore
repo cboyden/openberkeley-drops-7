@@ -10,6 +10,9 @@ sites/*/private
 # Local stack development
 sites/*.localhost/*
 
+* Each site may customize settings.php - see OPENUCB-407
+sites/default/settings.php
+
 # security review
 security_review/IGNOREME.txt
 security_review/file_write_test*
