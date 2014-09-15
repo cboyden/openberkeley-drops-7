@@ -8,6 +8,10 @@ mysql:
   username: root
   encoding: utf8
 
+env:
+  - MAKEFILE=false
+  - MAKEFILE=true
+
 matrix:
   fast_finish: true
 
