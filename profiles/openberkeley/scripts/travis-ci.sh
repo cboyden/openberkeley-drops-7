@@ -2,6 +2,7 @@
 
 COMMAND=$1
 BUILD_TOP=`dirname $TRAVIS_BUILD_DIR`
+DIFFS=0
 EXIT_VALUE=0
 
 export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -37,6 +38,15 @@ system_install() {
     header Running build script
     cd $BUILD_TOP/openberkeley-drops-7/profiles/openberkeley
     echo "3" | bash ./rebuild.sh
+
+    header Verifying results of makefile
+    DIFFS=`git status | grep -e 'modified' -e 'Untracked' | grep -vc -e 'info'`
+    if [[ "$DIFFS" != 0 ]]; then
+      echo "Files (other than info files) differ"
+      echo "from source after running makefile:"
+      git status | grep -v -e 'info' -e 'branch' -e '(use' -e 'Changes not staged'
+      set_error
+    fi
   fi
 
 

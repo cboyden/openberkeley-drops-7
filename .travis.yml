@@ -41,9 +41,9 @@ script:
 after_script:
   - $HOME/travis-ci.sh after-tests
 
-notifications:
-  email:
-    recipients:
-      - cboyden@lists.berkeley.edu
-    on_success: always
-    on_failure: always
+# notifications:
+#   email:
+#     recipients:
+#       - ist-drupal@lists.berkeley.edu
+#     on_success: always
+#     on_failure: always
