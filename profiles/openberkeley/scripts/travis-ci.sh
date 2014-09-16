@@ -88,9 +88,9 @@ system_install() {
   sudo chmod 4755 $CHROME_SANDBOX
   sudo md5sum $CHROME_SANDBOX
 
-  # Get Selenium
+  # Get Selenium  - updated for changes to Firefox
   header Downloading Selenium
-  wget http://selenium-release.storage.googleapis.com/2.41/selenium-server-standalone-2.41.0.jar
+  wget http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
  
   # Disable sendmail
   echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
@@ -124,7 +124,7 @@ before_tests() {
 
   # Run the selenium server
   header Starting selenium
-  java -jar selenium-server-standalone-2.41.0.jar -Dwebdriver.chrome.driver=`pwd`/chromedriver > /dev/null 2>&1 &
+  java -jar selenium-server-standalone-2.43.1.jar -Dwebdriver.chrome.driver=`pwd`/chromedriver > /dev/null 2>&1 &
   echo $! > /tmp/selenium-server-pid
   sleep 5
 }
