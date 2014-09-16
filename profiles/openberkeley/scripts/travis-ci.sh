@@ -40,6 +40,7 @@ system_install() {
     echo "3" | bash ./rebuild.sh
 
     header Verifying results of makefile
+    cd $BUILD_TOP/openberkeley-drops-7
     DIFFS=`git status | grep -e 'modified' -e 'Untracked' | grep -vc -e 'info'`
     if [[ "$DIFFS" != 0 ]]; then
       echo "Files (other than info files) differ"
