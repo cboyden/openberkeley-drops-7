@@ -40,6 +40,7 @@ system_install() {
     echo "3" | bash ./rebuild.sh
 
     header Verifying results of makefile
+    cd $BUILD_TOP/openberkeley-drops-7
     DIFFS=`git status | grep -e 'modified' -e 'Untracked' | grep -vc -e 'info'`
     if [[ "$DIFFS" != 0 ]]; then
       echo "Files (other than info files) differ"
@@ -87,9 +88,9 @@ system_install() {
   sudo chmod 4755 $CHROME_SANDBOX
   sudo md5sum $CHROME_SANDBOX
 
-  # Get Selenium
+  # Get Selenium - updated for changes to Firefox
   header Downloading Selenium
-  wget http://selenium-release.storage.googleapis.com/2.41/selenium-server-standalone-2.41.0.jar
+  wget http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
  
   # Disable sendmail
   echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini

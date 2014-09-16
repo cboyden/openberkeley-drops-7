@@ -253,10 +253,8 @@ projects[panopoly_test][version] = 1.x-dev
 projects[panopoly_test][subdir] = panopoly
 projects[panopoly_test][type] = module
 projects[panopoly_test][download][type] = git
-projects[panopoly_test][download][revision] = a51edf6
+projects[panopoly_test][download][revision] = 4c72da7
 projects[panopoly_test][download][branch] = 7.x-1.x
 
-; Patch to remove dependency on panopoly_pages.
-projects[panopoly_test][patch][2316067] = http://drupal.org/files/issues/panopoly-test-remove-pages-dependency-2316067-1.patch
-
+; Note: Removed patch 2316067 because it's been merged into upstream Panopoly
 ; Note: Removed patches #2316157 and #2268641 because they've been merged into upstream Panopoly
