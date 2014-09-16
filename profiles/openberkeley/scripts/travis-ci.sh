@@ -38,16 +38,6 @@ system_install() {
     header Running build script
     cd $BUILD_TOP/openberkeley-drops-7/profiles/openberkeley
     echo "3" | bash ./rebuild.sh
-
-    header Verifying results of makefile
-    cd $BUILD_TOP/openberkeley-drops-7
-    DIFFS=`git status | grep -e 'modified' -e 'Untracked' | grep -vc -e 'info'`
-    if [[ "$DIFFS" != 0 ]]; then
-      echo "Files (other than info files) differ"
-      echo "from source after running makefile:"
-      git status | grep -v -e 'info' -e 'branch' -e '(use' -e 'Changes not staged'
-      set_error
-    fi
   fi
 
 
@@ -153,6 +143,16 @@ run_tests() {
 # Clean up after the tests.
 #
 after_tests() {
+  header Verifying results of makefile
+    cd $BUILD_TOP/openberkeley-drops-7
+    DIFFS=`git status --porcelain | grep -vc -e '.info$'`
+    if [[ "$DIFFS" != 0 ]]; then
+      echo "Files (other than info files) differ"
+      echo "from source after running makefile:"
+      git status --porcelain
+      set_error
+    fi
+
   header Cleaning up after tests
 
   WEB_SERVER_PID=`cat /tmp/webserver-server-pid`
