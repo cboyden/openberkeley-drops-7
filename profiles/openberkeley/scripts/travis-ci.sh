@@ -64,7 +64,7 @@ system_install() {
 
   # Get Chrome - use a specific version
   header Installing Google Chrome
-  wget http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_37.0.2062.120-1_amd64.deb
+  wget http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_37.0.2062.94-1_amd64.deb
   sudo dpkg -i google-chrome-stable_37.0.2062.120-1_amd64.deb
   sudo apt-get -f install
   # sudo apt-get install google-chrome-stable
@@ -138,7 +138,7 @@ run_tests() {
   cd openberkeley-drops-7/profiles/openberkeley/openberkeley_tests/behat
 
   # First, run all the tests in Firefox.
-  run_test ./bin/behat --config behat.travis.yml
+  # run_test ./bin/behat --config behat.travis.yml
 
   # Then run some Chrome-only tests.
   run_test ./bin/behat --config behat.travis.yml -p chrome
