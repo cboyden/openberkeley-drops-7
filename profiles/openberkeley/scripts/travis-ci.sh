@@ -62,9 +62,15 @@ system_install() {
   sh -e /etc/init.d/xvfb start
   sleep 5
 
-  # Get Chrome and ChromeDriver
+  # Get Chrome - use a specific version
   header Installing Google Chrome
-  sudo apt-get install google-chrome-stable
+  wget http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_37.0.2062.120-1_amd64.deb
+  sudo dpkg -i google-chrome-stable_37.0.2062.120-1_amd64.deb
+  sudo apt-get -f install
+  # sudo apt-get install google-chrome-stable
+
+  # Get chromedriver
+  header Installing chromedriver
   wget http://chromedriver.storage.googleapis.com/2.9/chromedriver_linux64.zip
   unzip -a chromedriver_linux64.zip
 
@@ -136,6 +142,20 @@ run_tests() {
 
   # Then run some Chrome-only tests.
   run_test ./bin/behat --config behat.travis.yml -p chrome
+
+  # Finally, verify that there have been no changes to the code as a result
+  # of running the makefile. Exclude info and settings files.
+  if [[ "$MAKEFILE" != false ]]; then
+    header Verifying results of makefile
+    cd $BUILD_TOP/openberkeley-drops-7
+    DIFFS=`git status --porcelain | grep -vc -e '.info$' -e 'settings.php' -e 'panopoly_demo'`
+    if [[ "$DIFFS" != 0 ]]; then
+      echo "Files (other than info and settings files)"
+      echo "differ from source after running makefile:"
+      git status --porcelain
+      set_error
+    fi
+  fi
 }
 
 # after_tests
@@ -143,16 +163,6 @@ run_tests() {
 # Clean up after the tests.
 #
 after_tests() {
-  header Verifying results of makefile
-    cd $BUILD_TOP/openberkeley-drops-7
-    DIFFS=`git status --porcelain | grep -vc -e '.info$'`
-    if [[ "$DIFFS" != 0 ]]; then
-      echo "Files (other than info files) differ"
-      echo "from source after running makefile:"
-      git status --porcelain
-      set_error
-    fi
-
   header Cleaning up after tests
 
   WEB_SERVER_PID=`cat /tmp/webserver-server-pid`
