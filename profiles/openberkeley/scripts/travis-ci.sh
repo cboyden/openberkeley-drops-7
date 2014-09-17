@@ -62,16 +62,13 @@ system_install() {
   sh -e /etc/init.d/xvfb start
   sleep 5
 
-  # Get Chrome - use a specific version
+  # Get Chrome
   header Installing Google Chrome
-  wget http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_37.0.2062.94-1_amd64.deb
-  sudo dpkg -i google-chrome-stable_37.0.2062.120-1_amd64.deb
-  sudo apt-get -f install
-  # sudo apt-get install google-chrome-stable
+  sudo apt-get install google-chrome-stable
 
   # Get chromedriver
   header Installing chromedriver
-  wget http://chromedriver.storage.googleapis.com/2.9/chromedriver_linux64.zip
+  wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
   unzip -a chromedriver_linux64.zip
 
   # Insane hack from jsdevel:
