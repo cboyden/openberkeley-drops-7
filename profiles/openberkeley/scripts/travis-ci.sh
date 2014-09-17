@@ -59,7 +59,7 @@ system_install() {
 
   # Setup display for Selenium
   header Starting X
-  sh -e /etc/init.d/xvfb start
+  Xvfb :99 -ac -screen 0 1280x1024x24 &
   sleep 5
 
   # Get Chrome
@@ -75,11 +75,11 @@ system_install() {
   #   https://github.com/jsdevel/travis-debugging/blob/master/shim.bash
   # This allows chrome-sandbox to work in side of OpenVZ, because I can't
   # figure out how to start chrome with --no-sandbox.
-  sudo rm -f $CHROME_SANDBOX
-  sudo wget https://googledrive.com/host/0B5VlNZ_Rvdw6NTJoZDBSVy1ZdkE -O $CHROME_SANDBOX
-  sudo chown root:root $CHROME_SANDBOX
-  sudo chmod 4755 $CHROME_SANDBOX
-  sudo md5sum $CHROME_SANDBOX
+  # sudo rm -f $CHROME_SANDBOX
+  # sudo wget https://googledrive.com/host/0B5VlNZ_Rvdw6NTJoZDBSVy1ZdkE -O $CHROME_SANDBOX
+  # sudo chown root:root $CHROME_SANDBOX
+  # sudo chmod 4755 $CHROME_SANDBOX
+  # sudo md5sum $CHROME_SANDBOX
 
   # Get Selenium  - updated for changes to Firefox
   header Downloading Selenium
