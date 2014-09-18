@@ -145,7 +145,7 @@ run_tests() {
   if [[ "$MAKEFILE" != false ]]; then
     header Verifying results of makefile
     cd $BUILD_TOP/openberkeley-drops-7
-    DIFFS=`git status --porcelain | grep -vc -e '.info$' -e 'settings.php' -e 'panopoly_demo'`
+    DIFFS=`git status --porcelain | grep -ivc -e '.info$' -e 'settings.php' -e 'panopoly_demo' -e 'readme'`
     if [[ "$DIFFS" != 0 ]]; then
       echo "Files (other than info and settings files)"
       echo "differ from source after running makefile:"
